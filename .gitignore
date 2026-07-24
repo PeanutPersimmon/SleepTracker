@@ -1,0 +1,33 @@
+*.iml
+.idea/
+.gradle/
+local.properties
+.agents/
+
+/build/
+app/build/
+captures/
+.externalNativeBuild/
+.cxx/
+.DS_Store
+
+# Android build and release artifacts
+*.apk
+*.aab
+app/release/
+
+# Signing files
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+keystore.properties
+signing.properties
+
+# Local secrets and environment files
+secrets.properties
+.env
+.env.*
+!.env.example

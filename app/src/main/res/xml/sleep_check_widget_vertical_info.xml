@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/sleep_check_widget_vertical_description"
+    android:initialLayout="@layout/glance_default_loading_layout"
+    android:minWidth="56dp"
+    android:minHeight="96dp"
+    android:previewImage="@drawable/widget_preview_sleep_check"
+    android:resizeMode="none"
+    android:targetCellWidth="1"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen" />

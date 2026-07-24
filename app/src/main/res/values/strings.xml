@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Sleep</string>
+    <string name="sleep_check_widget_name">睡眠打卡</string>
+    <string name="sleep_check_widget_horizontal_name">睡眠打卡 · 横向</string>
+    <string name="sleep_check_widget_vertical_name">睡眠打卡 · 竖向</string>
+    <string name="sleep_check_widget_description">快速记录入睡和起床时间</string>
+    <string name="sleep_check_widget_horizontal_description">横向快速记录入睡和起床时间</string>
+    <string name="sleep_check_widget_vertical_description">竖向快速记录入睡和起床时间</string>
+</resources>
