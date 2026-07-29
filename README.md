@@ -1,5 +1,23 @@
 # Sleep
 
+## About
+
+SleepTracker is developed and maintained by PeanutPersimmon.
+
+Developer:  
+[PeanutPersimmon GitHub](https://github.com/PeanutPersimmon)
+
+Project:  
+[SleepTracker Repository](https://github.com/PeanutPersimmon/SleepTracker)
+
+## Development
+
+This project was developed with assistance from OpenAI Codex.
+
+OpenAI Codex was used for code assistance, refactoring suggestions, and documentation assistance.
+
+The project's design, feature decisions, and final implementation are the responsibility of PeanutPersimmon.
+
 Sleep 是一款面向 Android 的极简睡眠记录应用，用于快速记录入睡与起床时间，并通过趋势图、日历、热力图和月度/年度报告帮助用户回顾自己的睡眠习惯。
 
 应用采用本地优先设计：睡眠记录和主题设置保存在设备本地，当前版本不包含应用内账号体系或云同步功能。

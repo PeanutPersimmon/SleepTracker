@@ -1,5 +1,7 @@
 package com.amethamor.sleep.ui.screens.settings.components
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +19,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,6 +32,8 @@ import com.amethamor.sleep.ui.components.SleepDialogDefaults
 fun AboutDialog(
     onDismiss: () -> Unit
 ) {
+    val context = LocalContext.current
+
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
@@ -80,6 +85,55 @@ fun AboutDialog(
 
                     Text(
                         text = "当前版本：1.0.0",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontSize = 13.sp,
+                        color = SleepDialogDefaults.bodyColor,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    TextButton(
+                        onClick = {
+                            context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://github.com/PeanutPersimmon")
+                                )
+                            )
+                        }
+                    ) {
+                        Text(
+                            text = "Developer:\nPeanutPersimmon",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontSize = 13.sp,
+                            color = SleepDialogDefaults.confirmActionColor,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                    TextButton(
+                        onClick = {
+                            context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://github.com/PeanutPersimmon/SleepTracker")
+                                )
+                            )
+                        }
+                    ) {
+                        Text(
+                            text = "Repository:\nSleepTracker",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontSize = 13.sp,
+                            color = SleepDialogDefaults.confirmActionColor,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                    Text(
+                        text = "License:\nGPL-3.0-only\n\nDevelopment assistance:\nOpenAI Codex",
                         style = MaterialTheme.typography.bodyMedium,
                         fontSize = 13.sp,
                         color = SleepDialogDefaults.bodyColor,
