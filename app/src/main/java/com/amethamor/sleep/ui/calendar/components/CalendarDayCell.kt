@@ -35,6 +35,7 @@ import com.amethamor.sleep.R
 import com.amethamor.sleep.ui.calendar.CalendarDateUtils
 import com.amethamor.sleep.ui.calendar.CalendarDayUiModel
 import com.amethamor.sleep.ui.calendar.CalendarMode
+import com.amethamor.sleep.ui.theme.SleepColorScheme
 import com.amethamor.sleep.ui.theme.SleepTheme
 import java.time.LocalTime
 
@@ -83,11 +84,11 @@ fun CalendarDayCell(
                     when (mode) {
                         CalendarMode.BedTime -> TimeContent(
                             time = day.bedTime,
-                            visualProvider = ::bedTimeVisual
+                            visualProvider = ::calendarBedTimeVisual
                         )
                         CalendarMode.WakeTime -> TimeContent(
                             time = day.wakeTime,
-                            visualProvider = ::wakeTimeVisual
+                            visualProvider = ::calendarWakeTimeVisual
                         )
                         CalendarMode.Duration -> DurationContent(
                             durationMinutes = day.durationMinutes
@@ -126,8 +127,8 @@ private fun NapContent(
         return
     }
 
-    val color = napColor(totalMinutes)
-    val iconType = napIconType(totalMinutes)
+    val color = calendarNapColor(totalMinutes, SleepTheme.colors)
+    val iconType = calendarNapIconType(totalMinutes)
     CalendarSleepIcon(type = iconType, color = color)
     Spacer(modifier = Modifier.size(1.dp))
     CellValueText(
@@ -136,19 +137,10 @@ private fun NapContent(
     )
 }
 
-private fun napIconType(totalMinutes: Int): CalendarSleepIconType {
-    return when {
-        totalMinutes <= 30 -> CalendarSleepIconType.WakeEarly
-        totalMinutes <= 60 -> CalendarSleepIconType.WakeNormal
-        totalMinutes <= 90 -> CalendarSleepIconType.WakeLate
-        else -> CalendarSleepIconType.WakeVeryLate
-    }
-}
-
 @Composable
 private fun TimeContent(
     time: LocalTime?,
-    visualProvider: (LocalTime, Color, Color, Color, Color) -> TimeCellVisual
+    visualProvider: (LocalTime, SleepColorScheme) -> CalendarTimeVisual
 ) {
     if (time == null) {
         Spacer(modifier = Modifier.size(26.dp))
@@ -156,7 +148,7 @@ private fun TimeContent(
     }
 
     val colors = SleepTheme.colors
-    val visual = visualProvider(time, colors.success, colors.sleepNormal, colors.warning, colors.danger)
+    val visual = visualProvider(time, colors)
     MoodBlock(visual = visual)
     Spacer(modifier = Modifier.size(1.dp))
     CellValueText(
@@ -177,12 +169,12 @@ private fun DurationContent(durationMinutes: Int?) {
     Spacer(modifier = Modifier.size(1.dp))
     DurationValueText(
         text = durationText,
-        color = durationTextColor(durationMinutes)
+        color = calendarDurationTextColor(durationMinutes, SleepTheme.colors)
     )
 }
 
 @Composable
-private fun MoodBlock(visual: TimeCellVisual) {
+private fun MoodBlock(visual: CalendarTimeVisual) {
     CalendarSleepIcon(
         type = visual.iconType,
         color = visual.textColor
@@ -194,7 +186,7 @@ private fun DurationProgressRing(durationMinutes: Int) {
     val colors = SleepTheme.colors
     val maxMinutes = 10 * 60
     val progress = (durationMinutes.toFloat() / maxMinutes).coerceIn(0f, 1f)
-    val ringColor = durationTextColor(durationMinutes)
+    val ringColor = calendarDurationTextColor(durationMinutes, colors)
     val backgroundColor = colors.calendarMissing.copy(alpha = 0.72f)
 
     Canvas(modifier = Modifier.size(26.dp)) {
@@ -262,66 +254,6 @@ private fun DurationValueText(
     )
 }
 
-private data class TimeCellVisual(
-    val iconType: CalendarSleepIconType,
-    val textColor: Color
-)
-
-private fun bedTimeVisual(
-    time: LocalTime,
-    successColor: Color,
-    normalColor: Color,
-    warningColor: Color,
-    dangerColor: Color
-): TimeCellVisual {
-    val sleepHour = if (time.hour < 12) time.hour + 24 else time.hour
-    return when {
-        sleepHour < 23 -> TimeCellVisual(
-            iconType = CalendarSleepIconType.BedEarly,
-            textColor = successColor
-        )
-        sleepHour < 25 -> TimeCellVisual(
-            iconType = CalendarSleepIconType.BedNormal,
-            textColor = normalColor
-        )
-        sleepHour < 27 -> TimeCellVisual(
-            iconType = CalendarSleepIconType.BedLate,
-            textColor = warningColor
-        )
-        else -> TimeCellVisual(
-            iconType = CalendarSleepIconType.BedVeryLate,
-            textColor = dangerColor
-        )
-    }
-}
-
-private fun wakeTimeVisual(
-    time: LocalTime,
-    successColor: Color,
-    normalColor: Color,
-    warningColor: Color,
-    dangerColor: Color
-): TimeCellVisual {
-    return when {
-        time.hour < 8 -> TimeCellVisual(
-            iconType = CalendarSleepIconType.WakeEarly,
-            textColor = successColor
-        )
-        time.hour < 10 -> TimeCellVisual(
-            iconType = CalendarSleepIconType.WakeNormal,
-            textColor = normalColor
-        )
-        time.hour < 12 -> TimeCellVisual(
-            iconType = CalendarSleepIconType.WakeLate,
-            textColor = warningColor
-        )
-        else -> TimeCellVisual(
-            iconType = CalendarSleepIconType.WakeVeryLate,
-            textColor = dangerColor
-        )
-    }
-}
-
 enum class CalendarSleepIconType {
     BedEarly,
     BedNormal,
@@ -362,28 +294,6 @@ private fun CalendarSleepIconType.iconRes(): Int {
     }
 }
 
-@Composable
-private fun durationTextColor(durationMinutes: Int): Color {
-    val colors = SleepTheme.colors
-    return when {
-        durationMinutes in (7 * 60)..(9 * 60) -> colors.success
-        durationMinutes in (6 * 60) until (7 * 60) -> colors.sleepNormal
-        durationMinutes in ((9 * 60) + 1)..(10 * 60) -> colors.sleepNormal
-        else -> colors.danger
-    }
-}
-
 private fun formatTime(time: LocalTime): String {
     return String.format("%02d:%02d", time.hour, time.minute)
-}
-
-@Composable
-private fun napColor(totalMinutes: Int): Color {
-    val colors = SleepTheme.colors
-    return when {
-        totalMinutes <= 30 -> colors.success
-        totalMinutes <= 60 -> colors.sleepNormal
-        totalMinutes <= 90 -> colors.warning
-        else -> colors.danger
-    }
 }

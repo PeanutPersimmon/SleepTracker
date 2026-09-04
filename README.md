@@ -10,13 +10,19 @@ Developer:
 Project:  
 [SleepTracker Repository](https://github.com/PeanutPersimmon/SleepTracker)
 
-## Development
+## Acknowledgements
+
+### OpenAI Codex
 
 This project was developed with assistance from OpenAI Codex.
 
 OpenAI Codex was used for code assistance, refactoring suggestions, and documentation assistance.
 
 The project's design, feature decisions, and final implementation are the responsibility of PeanutPersimmon.
+
+### Tabler Icons
+
+日历睡眠状态中的部分矢量图标基于或改编自 [Tabler Icons](https://github.com/tabler/tabler-icons)。Tabler Icons 使用 MIT License，完整许可证及资源对应关系见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
 
 Sleep 是一款面向 Android 的极简睡眠记录应用，用于快速记录入睡与起床时间，并通过趋势图、日历、热力图和月度/年度报告帮助用户回顾自己的睡眠习惯。
 
@@ -40,7 +46,7 @@ Sleep 是一款面向 Android 的极简睡眠记录应用，用于快速记录�
 - 单独统计午睡次数、平均时长及相关睡眠状态。
 - 在日历中按入睡时间、起床时间、睡眠时长或午睡四种模式浏览记录。
 - 导出包含汇总、趋势、分布、日历、热力图和建议的月度睡眠报告长图。
-- 导出当前年份的年度睡眠报告图片。
+- 支持选择年份导出年度睡眠报告图片，汇总夜间睡眠、梦境、夜醒和午睡等年度数据。
 
 ### 个性化与数据管理
 
@@ -185,3 +191,5 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-8.7-bin.zip
 ## 许可证
 
 本项目采用 GNU General Public License v3.0（GPL-3.0-only），详见 [`LICENSE`](LICENSE)。
+
+随应用分发的第三方视觉资源保留其各自许可证，详见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。

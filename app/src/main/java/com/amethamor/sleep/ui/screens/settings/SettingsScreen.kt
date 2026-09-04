@@ -44,6 +44,7 @@ import com.amethamor.sleep.ui.components.SleepDialogDefaults
 import com.amethamor.sleep.ui.components.ThemePreviewRow
 import com.amethamor.sleep.ui.report.annual.AnnualReportExportDialog
 import com.amethamor.sleep.ui.report.annual.AnnualReportExportManager
+import com.amethamor.sleep.ui.report.annual.AnnualReportYearPickerDialog
 import com.amethamor.sleep.ui.report.monthly.MonthlyReportExportDialog
 import com.amethamor.sleep.ui.screens.settings.components.AboutDialog
 import com.amethamor.sleep.ui.screens.settings.components.SettingsItemRow
@@ -76,8 +77,18 @@ fun SettingsScreen(
 
     var showAboutDialog by remember { mutableStateOf(false) }
     var showMonthlyReportDialog by remember { mutableStateOf(false) }
+    var showAnnualReportYearPickerDialog by remember { mutableStateOf(false) }
     var showCustomThemeDialog by remember { mutableStateOf(false) }
     var isExportingAnnualReport by remember { mutableStateOf(false) }
+    val currentYear = Year.now().value
+    var selectedAnnualReportYear by remember { mutableStateOf(currentYear) }
+    val earliestAnnualReportYear = remember(allRecords, currentYear) {
+        allRecords
+            .mapNotNull { DateTimeUtils.parseRecordDateOrNull(it.recordDate)?.year }
+            .minOrNull()
+            ?.coerceAtMost(currentYear)
+            ?: currentYear
+    }
     var pendingImportUri by remember { mutableStateOf<android.net.Uri?>(null) }
     var pendingImportManifest by remember { mutableStateOf<SleepBackupManifest?>(null) }
     var showFirstConfirmDialog by remember { mutableStateOf(false) }
@@ -133,11 +144,10 @@ fun SettingsScreen(
         }
     }
 
-    fun exportAnnualReport() {
+    fun exportAnnualReport(year: Int) {
         if (isExportingAnnualReport) return
-        val year = Year.now().value
         if (allRecords.none { DateTimeUtils.parseRecordDateOrNull(it.recordDate)?.year == year }) {
-            showToast("今年暂无睡眠记录，无法生成年度报告")
+            showToast("${year} 年暂无睡眠记录")
             return
         }
         isExportingAnnualReport = true
@@ -170,6 +180,20 @@ fun SettingsScreen(
 
     if (showAboutDialog) {
         AboutDialog(onDismiss = { showAboutDialog = false })
+    }
+
+    if (showAnnualReportYearPickerDialog) {
+        AnnualReportYearPickerDialog(
+            selectedYear = selectedAnnualReportYear,
+            earliestYear = earliestAnnualReportYear,
+            currentYear = currentYear,
+            onYearChange = { selectedAnnualReportYear = it },
+            onDismiss = { showAnnualReportYearPickerDialog = false },
+            onExport = {
+                showAnnualReportYearPickerDialog = false
+                exportAnnualReport(selectedAnnualReportYear)
+            }
+        )
     }
 
     if (showMonthlyReportDialog) {
@@ -290,7 +314,10 @@ fun SettingsScreen(
                 SettingsItemRow(
                     title = "年度报告",
                     subtitle = "",
-                    onClick = { exportAnnualReport() },
+                    onClick = {
+                        selectedAnnualReportYear = currentYear
+                        showAnnualReportYearPickerDialog = true
+                    },
                     showDivider = false
                 )
             }

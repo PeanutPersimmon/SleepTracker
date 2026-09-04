@@ -46,7 +46,7 @@ object AnnualReportTextUtils {
     ): List<String> {
         if (averageBedMinutes == null && averageWakeMinutes == null) {
             return listOf(
-                "今年的入睡与起床时间记录还不够完整。",
+                "该年度的入睡与起床时间记录还不够完整。",
                 "继续记录后，可以看到更清晰的作息节奏。"
             )
         }
@@ -82,7 +82,7 @@ object AnnualReportTextUtils {
     fun buildAnnualSummary(report: AnnualSummaryInput): List<String> {
         val lines = mutableListOf<String>()
         lines += when {
-            report.completeNightDays < 30 -> "今年记录天数较少，年度结论仅供参考。"
+            report.completeNightDays < 30 -> "该年度记录天数较少，年度结论仅供参考。"
             report.completeRate >= 0.8f -> "这一年的睡眠记录较稳定，完整记录占比很高。"
             report.completeRate >= 0.5f -> "这一年保留了不少睡眠记录，可以继续提高完整度。"
             else -> "这一年的记录还比较零散，可以从固定打卡开始。"
@@ -96,10 +96,10 @@ object AnnualReportTextUtils {
             else -> "梦境记录整体平稳，适合继续轻松观察。"
         }
         lines += when {
-            report.napDays <= 0 -> "今年午睡记录较少，白天休息节奏比较轻。"
+            report.napDays <= 0 -> "该年度午睡记录较少，白天休息节奏比较轻。"
             report.napDays <= 2 -> "午睡记录较少，可继续观察习惯变化。"
             report.mainNapDurationLabel != null -> "午睡习惯较稳定，多集中在 ${report.mainNapDurationLabel}。"
-            else -> "今年有午睡记录，短暂休息为白天补了一点能量。"
+            else -> "该年度有午睡记录，短暂休息为白天补了一点能量。"
         }
         return lines.take(4)
     }

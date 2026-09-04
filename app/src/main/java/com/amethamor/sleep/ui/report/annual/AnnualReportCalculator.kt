@@ -14,7 +14,8 @@ object AnnualReportCalculator {
         val completeNightRecords = nightRecords.filter {
             it.bedTimeMillis != null && it.wakeTimeMillis != null && it.durationMinutes != null
         }
-        val totalRecordDays = SleepStatisticsCalculator.countRecordDays(yearRecords)
+        val allRecordDays = SleepStatisticsCalculator.countRecordDays(yearRecords)
+        val totalRecordDays = SleepStatisticsCalculator.countRecordDays(nightRecords)
         val completeNightDays = SleepStatisticsCalculator.countCompleteNightDays(nightRecords)
         val completeRate = ratio(completeNightDays, totalRecordDays)
         val averageBedMinutes = SleepStatisticsCalculator.calculateAverageBedTime(nightRecords)
@@ -79,7 +80,7 @@ object AnnualReportCalculator {
             nightmareDays = nightmareDays,
             nightmareDaysRate = nightmareRate,
             napDays = napDays,
-            napDaysRate = ratio(napDays, totalRecordDays),
+            napDaysRate = ratio(napDays, allRecordDays),
             averageNapDurationText = AnnualReportTextUtils.formatNapDuration(averageNapDuration),
             napDurationDistribution = napDurationDistribution,
             sleepWakeSummary = AnnualReportTextUtils.buildSleepWakeSummary(

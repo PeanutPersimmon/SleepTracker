@@ -168,7 +168,7 @@ object AnnualReportImageRenderer {
 
     private fun drawHeader(canvas: Canvas, context: Context, report: AnnualSleepReport) {
         val rect = Poster.Header
-        AnnualReportDrawingUtils.drawTextLine(canvas, "${report.year} 年度睡眠汇报", Poster.Width / 2f, rect.top + 66f, TypeScale.Title, AnnualReportColors.PrimaryDark, true, Paint.Align.CENTER)
+        AnnualReportDrawingUtils.drawTextLine(canvas, "${report.year} 年睡眠年报", Poster.Width / 2f, rect.top + 66f, TypeScale.Title, AnnualReportColors.PrimaryDark, true, Paint.Align.CENTER)
         val subtitleY = rect.top + 118f
         drawLine(canvas, 302f, subtitleY - 9f, 392f, subtitleY - 9f, AnnualReportColors.TextTertiary, 2f)
         drawLine(canvas, 688f, subtitleY - 9f, 778f, subtitleY - 9f, AnnualReportColors.TextTertiary, 2f)
@@ -182,7 +182,7 @@ object AnnualReportImageRenderer {
         AnnualReportDrawingUtils.drawVectorIcon(canvas, context, R.drawable.ic_widget_sleep_moon, RectF(rect.left + 40f, rect.top + 40f, rect.left + 92f, rect.top + 92f), AnnualReportColors.Yellow, 115)
         AnnualReportDrawingUtils.drawVectorIcon(canvas, context, R.drawable.ic_report_cloud, RectF(rect.left + 66f, rect.top + 64f, rect.left + 134f, rect.top + 118f), AnnualReportColors.Primary, 45)
 
-        drawTopMetric(canvas, "全年记录", report.totalRecordDays.toString(), "天", rect.left + 388f, rect.top + 88f)
+        drawTopMetric(canvas, "夜间记录", report.totalRecordDays.toString(), "天", rect.left + 388f, rect.top + 88f)
         drawTopMetric(canvas, "完整记录", report.completeNightDays.toString(), "天 · ${AnnualReportTextUtils.formatPercent(report.completeRate)}", rect.left + 728f, rect.top + 88f)
         drawDivider(canvas, rect.left + 558f, rect.top + 42f, rect.top + 140f)
         drawHorizontalDivider(canvas, rect.left + Poster.CardPadding, rect.top + 168f, rect.right - Poster.CardPadding)

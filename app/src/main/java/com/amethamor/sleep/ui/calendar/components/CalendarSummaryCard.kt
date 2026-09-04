@@ -43,7 +43,7 @@ fun CalendarSummaryCard(
                         modifier = Modifier.weight(1f)
                     )
                     SummaryItem(
-                        label = "有缺失",
+                        label = "不完整",
                         value = "${statistics.incompleteDays}天",
                         modifier = Modifier.weight(1f)
                     )
@@ -60,7 +60,7 @@ fun CalendarSummaryCard(
                         modifier = Modifier.weight(1f)
                     )
                     SummaryItem(
-                        label = "有缺失",
+                        label = "不完整",
                         value = "${statistics.incompleteDays}天",
                         modifier = Modifier.weight(1f)
                     )
@@ -77,7 +77,7 @@ fun CalendarSummaryCard(
                         modifier = Modifier.weight(1f)
                     )
                     SummaryItem(
-                        label = "有缺失",
+                        label = "不完整",
                         value = "${statistics.incompleteDays}天",
                         modifier = Modifier.weight(1f)
                     )
