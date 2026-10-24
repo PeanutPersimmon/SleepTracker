@@ -1,6 +1,6 @@
 # Third-Party Notices
 
-This file records third-party visual resources distributed with SleepTracker. The SleepTracker project itself remains licensed under GPL-3.0-only as stated in the root `LICENSE` file.
+This file records third-party visual resources distributed with SleepTracker. The project's own code is now licensed under PolyForm Noncommercial License 1.0.0 as stated in the root `LICENSE` file. The third-party resources below retain their own licenses.
 
 ## Tabler Icons
 

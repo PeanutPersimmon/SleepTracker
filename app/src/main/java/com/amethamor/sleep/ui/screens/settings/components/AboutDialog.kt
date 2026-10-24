@@ -133,7 +133,7 @@ fun AboutDialog(
                     }
 
                     Text(
-                        text = "License:\nGPL-3.0-only\n\nDevelopment assistance:\nOpenAI Codex",
+                        text = "License:\nPolyForm Noncommercial 1.0.0\n\nDevelopment assistance:\nOpenAI Codex",
                         style = MaterialTheme.typography.bodyMedium,
                         fontSize = 13.sp,
                         color = SleepDialogDefaults.bodyColor,

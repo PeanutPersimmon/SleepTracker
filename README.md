@@ -190,6 +190,8 @@ The project's design, feature decisions, and final implementation are the respon
 
 ## 许可证
 
-本项目采用 GNU General Public License v3.0（GPL-3.0-only），详见 [`LICENSE`](LICENSE)。
+本项目自有源码现采用 [PolyForm Noncommercial License 1.0.0](LICENSE) 授权，允许符合协议要求的非商业使用、学习、研究、修改与分发。未经另行授权，不允许商业用途。具体权利与限制以 LICENSE 原文为准。
+
+此前依据 GPL-3.0-only 获得的项目版本仍按当时的许可条款使用；此次变更不追溯撤销既有授权。
 
 随应用分发的第三方视觉资源保留其各自许可证，详见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
